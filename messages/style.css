@@ -1,0 +1,18 @@
+body {
+	text-align: center;
+	font: Verdana;
+}
+
+#lyrics{
+	font-style: italic;
+	text-align: center;
+	font-family: Arial; 
+}
+
+#title { 
+	color: #FFFFFF;
+	text-align: center;
+	font-family: verdana;
+	font-weight: 900; 
+	font-variant: small-caps;
+}
