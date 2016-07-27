@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>My Old Kentucky Home</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+<h1 id="title">My Old Kentucky Home</h1>
+
+<video src="https://www.cs.tufts.edu/comp/20/my_old_kentucky_home.mp4" id="music_video" controls></video>
+<div id="lyrics"></div>
+
+<script>
+		function showLyrics() {
+		var lyricsElement = document.getElementById("lyrics");
+		var theTime = document.getElementById("music_video").currentTime;
+
+		var lyricArr = ["<p>", "(placeholder)", "<br></p>" ];
+		var lyricStore = [	
+							"The sun shines bright in My Old Kentucky Home,",
+							"'Tis summer, the people are gay;",
+							"The corn-top's ripe and the meadow's in the bloom",
+							"While the birds make music all the day.",
+
+							"The young folks roll on the little cabin floor,",
+							"All merry, all happy and bright;",
+							"By 'n' by hard times comes a knocking at the door,",
+							"Then My Old Kentucky Home, good night!",
+
+							"Chorus",
+
+							"Weep no more my lady",
+							"Oh weep no more today;",
+							"We will sing one song",
+							"For My Old Kentucky Home",
+							"For My Old Kentucky Home, far away"
+						];
+
+		if ((theTime > 0 && theTime < 9) || theTime > 92){
+			lyricsElement.innerHTML = 
+			'<img src="imageone.png" alt="Waiting" style="width:350px;height:230px">';
+		}
+		//start
+		else if (theTime > 9 && theTime < 14){
+			lyricArr[1] = lyricStore[0];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagetwo.png" alt="Beginning" style="width:350px;height:230px">';
+		}
+		else if (theTime > 14 && theTime < 21){
+			lyricArr[1] = lyricStore[1];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagetwo.png" alt="Beginning" style="width:350px;height:230px">';
+		}
+		else if (theTime > 21 && theTime < 28){
+			lyricArr[1] = lyricStore[2];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagetwo.png" alt="Beginning" style="width:350px;height:230px">';
+		}
+		else if (theTime > 28 && theTime < 35){
+			lyricArr[1] = lyricStore[3];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagetwo.png" alt="Beginning" style="width:350px;height:230px">';
+		}
+		// Second stanza
+		else if (theTime > 35 && theTime < 43){
+			lyricArr[1] = lyricStore[4];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagetwo.png" alt="Second stanza" style="width:350px;height:240px">';
+		}
+		else if (theTime > 43 && theTime < 49){
+			lyricArr[1] = lyricStore[5];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagetwo.png" alt="Second stanza" style="width:350px;height:240px">';
+		}
+		else if (theTime > 49 && theTime < 56){
+			lyricArr[1] = lyricStore[6];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagetwo.png" alt="Second stanza" style="width:350px;height:240px">';
+		}
+		else if (theTime > 56 && theTime < 63){
+			lyricArr[1] = lyricStore[7];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagetwo.png" alt="Second stanza" style="width:350px;height:240px">';
+		}
+		//Chorus
+		else if (theTime > 62 && theTime < 69){
+			lyricArr[1] = lyricStore[9];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagethree.png" alt="Chorus" style="width:350px;height:240px">';
+		}
+		else if (theTime > 69 && theTime < 76){
+			lyricArr[1] = lyricStore[10];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagethree.png" alt="Chorus" style="width:350px;height:240px">';
+		}
+		else if (theTime > 76 && theTime < 80){
+			lyricArr[1] = lyricStore[11];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagethree.png" alt="Chorus" style="width:350px;height:240px">';
+		}
+		else if (theTime > 80 && theTime < 84){
+			lyricArr[1] = lyricStore[12];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagethree.png" alt="Chorus" style="width:350px;height:240px">';
+		}
+		else if (theTime > 84 && theTime < 93){
+			lyricArr[1] = lyricStore[13];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagethree.png" alt="Chorus" style="width:350px;height:240px">';
+		}
+		else if (theTime > 84 && theTime < 92){
+			lyricArr[1] = lyricStore[13];
+			lyricsElement.innerHTML = lyricArr.join(" ") +
+			'<img src="imagethree.png" alt="Chorus" style="width:350px;height:240px">';
+		}
+	}
+
+	document.getElementById("music_video").addEventListener("timeupdate", showLyrics, true);
+</script>
+</body>
+</html>	
