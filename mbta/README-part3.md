@@ -1,6 +1,6 @@
 README for Part 3
 
-All the parts have been implemented successfully, but without accomplishing
+All parts have been implemented successfully, but without accomplishing
 above and beyond goals: Updated map that now connects to your server and not my
 server powerful-depths-66091.herokuapp.com; Working web application on
 herokuapp.com with cross-origin resource sharing enabled on GET /redline.json
