@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Security Assessment</title>
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+	<link rel="stylesheet" type="text/css" href="style.css"></link>
+	<meta charset = "utf-8" />
+</head>
+<body>
+<h1>Security Assessment</h1>
+
+<p>By Kaimeng Yang, 08/15/2016</p>
+
+<h2>Introduction</h2>
+
+<p>This assignment tests the security of a potentially vulnerable web application. This application accepts client's geo-locations as check-in info, and keeps a record of login info and locations. My responsibility is to find vulnerabilities that can be exploited in the system.</p>
+
+<h2>Methodology</h2>
+
+<p>Testing was first carried out in a "black-box" setting, in an attempt to identify any vulnerabilities without reading the source code. Then I looked at the code, and deployed to my account at Heroku, <a href="https://glacial-basin-40733.herokuapp.com/">@Heroku</a>, to furthur examined it. Curl was used to perform one major attack; no other tools such as webs security scanning softwares were used.</p>
+
+<h2>Abstract of Finding</h2>
+
+<p>The assessment has shown that there are several major issues, including leak of the entire database, automatic direction to other websites, and acceptance of scripted or meaningless user input. The first problem was caused by a simple manipulation to the query string, and the second and third problems were detected while performing XSS attacks.</p>
+
+<h2>Issues Found</h2>
+
+<ol>
+<li><p><strong>MongoDB Find Search</strong></p>
+<ul>
+	<li>
+		Issue: If <code>[$ne]=</code> was included after /checkins.json, it is possible to gain easy access to all clients' login info.
+	</li>
+	<li>
+		Location: /checkins.json
+	</li>
+	<li>
+		Severity of issue: High, considering the fact that the attacker can now gain access to all records.
+	</li>
+	<li>
+		Methods of finding: Inspired by Gabe Joseph's report.  
+	</li>
+	<li>
+		Proof of Vulnerability:<p>
+			<img src="MongoDB.png" alt="MongoDB loophole proof" />
+		</p>
+	</li>
+	<li>
+		Resolution: Refer to Gabe Joseph's solution: the Mongo query should be built explicitly, not taken entirely from user input. 
+		<pre><code>if (request.query.username) {
+collection.find( { 'username' : sanitize(request.query.username) });
+//Use data...
+}
+</code></pre>
+	</li>
+
+</ul>
+</li>
+
+<li><p><strong>Cross-Site Scripting</strong></p>
+<ul>
+	<li>
+		Issue: A second vulnerability found is the potential for client-side Javascript injection. This means the website can be manipulated to display malicious images, direct browser to third-party websites, etc.
+	</li>
+	<li>
+		Location: /sendLocation
+	</li>
+	<li>
+		Severity of issue: High, since it can alter the website completely for attack's own purposes.
+	</li>
+	<li>
+		Methods of finding: Through in class discussion on using curl: <code>"curl --data "login=<$script$ type="text/javascript">window.location.href='http://www.google.com'</$script$>" https://glacial-basin-40733.herokuapp.com/sendLocation"</code>. 
+	</li>
+	<li>
+		Proof of Vulnerability: The above attack directs users to google, and a proof of successful rediction/injection of script in the terminal:
+			<img src="xss.png" alt="XSS Proof">
+	</li>
+	<li>
+		Resolution: A check for user input is highly recommended with a minimal cost in fixing the code.
+	</li>
+</ul>
+</li>
+
+<li><p><strong>No Input Verification</strong></p>
+<ul>
+	<li>
+		Issue: Last and perhaps the most glaring vulnerability is that there is no data verfication procedure. As I performed XSS attacks, I lied about my login name, lattitude, and longitude. 
+	</li>
+	<li>
+		Location: /sendLocation
+	</li>
+	<li>
+		Severity of issue: High, considering the app is a geo-location based one, faking geo-location could render it meaningless.
+	</li>
+	<li>
+		Method of Finding: When performing XSS attacks, I entered faked information.
+	</li>
+	<li>
+		Proof of Vulnerability: the same as last picture. 
+
+	</li>
+	<li>
+		Resolution: Login and location could be checked against a valid list of login and location. If new and potentially invalid login and location appear, additional verfication producedure should be initiated, ie ask simple questions like what's your mum birth place.   
+	</li>
+</ul>
+</li>
+
+</ol>
+
+<h2>Conclusion</h2>
+
+<p>The above issues represented major flaws that need to be fixed. As recommended above, the first step towards a safer server is to sanitize all inputs and database queries. Additional validation procedure should also be considered if inital verification fails or is indequate.</p>
+</body>
+</html>
